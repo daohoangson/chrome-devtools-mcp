@@ -48,9 +48,30 @@ export async function ensureBrowserConnected(browserURL: string) {
   if (browser?.connected) {
     return browser;
   }
+
+  let browserWSEndpoint: string | undefined;
+  let headers: Record<string, string> | undefined;
+  if (browserURL.startsWith('ws://') || browserURL.startsWith('wss://')) {
+    browserWSEndpoint = browserURL;
+
+    try {
+      const url = new URL(browserURL);
+      const headersString = url.searchParams.get('headers');
+      if (typeof headersString === 'string' && headersString.length > 0) {
+        headers = JSON.parse(headersString);
+        url.searchParams.delete('headers');
+        browserWSEndpoint = url.toString();
+      }
+    } catch {
+      // ignore error
+    }
+  }
+
   browser = await puppeteer.connect({
     ...connectOptions,
-    browserURL,
+    browserURL: typeof browserWSEndpoint === 'string' ? undefined : browserURL,
+    browserWSEndpoint: browserWSEndpoint,
+    headers,
     defaultViewport: null,
   });
   return browser;
