@@ -125,7 +125,7 @@ describe('cli args parsing', () => {
       headless: false,
       isolated: false,
       $0: 'npx chrome-devtools-mcp@latest',
-      'browser-ws-endpoint': 'ws://127.0.0.1:9222/devtools/browser/abc123',
+      'ws-endpoint': 'ws://127.0.0.1:9222/devtools/browser/abc123',
       wsEndpoint: 'ws://127.0.0.1:9222/devtools/browser/abc123',
       w: 'ws://127.0.0.1:9222/devtools/browser/abc123',
     });
@@ -143,7 +143,7 @@ describe('cli args parsing', () => {
       headless: false,
       isolated: false,
       $0: 'npx chrome-devtools-mcp@latest',
-      'browser-ws-endpoint': 'wss://example.com:9222/devtools/browser/abc123',
+      'ws-endpoint': 'wss://example.com:9222/devtools/browser/abc123',
       wsEndpoint: 'wss://example.com:9222/devtools/browser/abc123',
       w: 'wss://example.com:9222/devtools/browser/abc123',
     });
