@@ -59,11 +59,11 @@ async function getContext(): Promise<McpContext> {
   }
   const devtools = args.experimentalDevtools ?? false;
   const browser =
-    args.browserUrl || args.browserWsEndpoint
+    args.browserUrl || args.wsEndpoint
       ? await ensureBrowserConnected({
           browserURL: args.browserUrl,
-          browserWSEndpoint: args.browserWsEndpoint,
-          headers: args.wsHeaders,
+          wsEndpoint: args.wsEndpoint,
+          wsHeaders: args.wsHeaders,
           devtools,
         })
       : await ensureBrowserLaunched({

@@ -113,11 +113,11 @@ describe('cli args parsing', () => {
     });
   });
 
-  it('parses browserWsEndpoint with ws:// protocol', async () => {
+  it('parses wsEndpoint with ws:// protocol', async () => {
     const args = parseArguments('1.0.0', [
       'node',
       'main.js',
-      '--browserWsEndpoint',
+      '--wsEndpoint',
       'ws://127.0.0.1:9222/devtools/browser/abc123',
     ]);
     assert.deepStrictEqual(args, {
@@ -126,16 +126,16 @@ describe('cli args parsing', () => {
       isolated: false,
       $0: 'npx chrome-devtools-mcp@latest',
       'browser-ws-endpoint': 'ws://127.0.0.1:9222/devtools/browser/abc123',
-      browserWsEndpoint: 'ws://127.0.0.1:9222/devtools/browser/abc123',
+      wsEndpoint: 'ws://127.0.0.1:9222/devtools/browser/abc123',
       w: 'ws://127.0.0.1:9222/devtools/browser/abc123',
     });
   });
 
-  it('parses browserWsEndpoint with wss:// protocol', async () => {
+  it('parses wsEndpoint with wss:// protocol', async () => {
     const args = parseArguments('1.0.0', [
       'node',
       'main.js',
-      '--browserWsEndpoint',
+      '--wsEndpoint',
       'wss://example.com:9222/devtools/browser/abc123',
     ]);
     assert.deepStrictEqual(args, {
@@ -144,7 +144,7 @@ describe('cli args parsing', () => {
       isolated: false,
       $0: 'npx chrome-devtools-mcp@latest',
       'browser-ws-endpoint': 'wss://example.com:9222/devtools/browser/abc123',
-      browserWsEndpoint: 'wss://example.com:9222/devtools/browser/abc123',
+      wsEndpoint: 'wss://example.com:9222/devtools/browser/abc123',
       w: 'wss://example.com:9222/devtools/browser/abc123',
     });
   });
@@ -153,7 +153,7 @@ describe('cli args parsing', () => {
     const args = parseArguments('1.0.0', [
       'node',
       'main.js',
-      '--browserWsEndpoint',
+      '--wsEndpoint',
       'ws://127.0.0.1:9222/devtools/browser/abc123',
       '--wsHeaders',
       '{"Authorization":"Bearer token","X-Custom":"value"}',
