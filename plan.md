@@ -154,15 +154,24 @@ Add usage examples showing:
 
 ## Testing Results ✅
 
+### Build & Code Quality
 - ✅ Build succeeds: `npm run build`
 - ✅ Type checking passes: `npm run typecheck`
 - ✅ Code formatting passes: `npm run format`
+
+### Manual Validation
 - ✅ WebSocket URL validation works (ws:// and wss:// accepted)
 - ✅ Invalid protocol rejected (http:// shows proper error)
 - ✅ Mutual exclusivity enforced (browserUrl + browserWsEndpoint conflict)
 - ✅ wsHeaders requires browserWsEndpoint (dependency enforced)
 - ✅ Invalid JSON rejected with clear error message
 - ✅ Help output displays new options correctly
+
+### Unit Tests (tests/cli.test.ts)
+- ✅ parses browserWsEndpoint with ws:// protocol
+- ✅ parses browserWsEndpoint with wss:// protocol
+- ✅ parses wsHeaders with valid JSON
+- ✅ All 9 CLI tests passing
 
 ## Git & PR Status ✅
 
