@@ -42,18 +42,33 @@ function makeTargetFilter(devtools: boolean) {
 }
 
 export async function ensureBrowserConnected(options: {
-  browserURL: string;
+  browserURL?: string;
+  browserWSEndpoint?: string;
+  headers?: Record<string, string>;
   devtools: boolean;
 }) {
   if (browser?.connected) {
     return browser;
   }
-  browser = await puppeteer.connect({
+
+  const connectOptions: Parameters<typeof puppeteer.connect>[0] = {
     targetFilter: makeTargetFilter(options.devtools),
-    browserURL: options.browserURL,
     defaultViewport: null,
     handleDevToolsAsPage: options.devtools,
-  });
+  };
+
+  if (options.browserWSEndpoint) {
+    connectOptions.browserWSEndpoint = options.browserWSEndpoint;
+    if (options.headers) {
+      connectOptions.headers = options.headers;
+    }
+  } else if (options.browserURL) {
+    connectOptions.browserURL = options.browserURL;
+  } else {
+    throw new Error('Either browserURL or browserWSEndpoint must be provided');
+  }
+
+  browser = await puppeteer.connect(connectOptions);
   return browser;
 }
 
