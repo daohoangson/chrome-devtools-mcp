@@ -284,12 +284,12 @@ The Chrome DevTools MCP server supports the following configuration option:
   Connect to a running Chrome instance using port forwarding. For more details see: https://developer.chrome.com/docs/devtools/remote-debugging/local-server.
   - **Type:** string
 
-- **`--browserWsEndpoint`, `-w`**
+- **`--wsEndpoint`, `-w`**
   WebSocket endpoint to connect to a running Chrome instance (e.g., ws://127.0.0.1:9222/devtools/browser/<id>). Alternative to --browserUrl.
   - **Type:** string
 
 - **`--wsHeaders`**
-  Custom headers for WebSocket connection in JSON format (e.g., '{"Authorization":"Bearer token"}'). Only works with --browserWsEndpoint.
+  Custom headers for WebSocket connection in JSON format (e.g., '{"Authorization":"Bearer token"}'). Only works with --wsEndpoint.
   - **Type:** string
 
 - **`--headless`**
@@ -362,7 +362,7 @@ You can connect directly to a Chrome WebSocket endpoint and include custom heade
       "command": "npx",
       "args": [
         "chrome-devtools-mcp@latest",
-        "--browserWsEndpoint=ws://127.0.0.1:9222/devtools/browser/<id>",
+        "--wsEndpoint=ws://127.0.0.1:9222/devtools/browser/<id>",
         "--wsHeaders={\"Authorization\":\"Bearer YOUR_TOKEN\"}"
       ]
     }

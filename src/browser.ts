@@ -43,8 +43,8 @@ function makeTargetFilter(devtools: boolean) {
 
 export async function ensureBrowserConnected(options: {
   browserURL?: string;
-  browserWSEndpoint?: string;
-  headers?: Record<string, string>;
+  wsEndpoint?: string;
+  wsHeaders?: Record<string, string>;
   devtools: boolean;
 }) {
   if (browser?.connected) {
@@ -57,15 +57,15 @@ export async function ensureBrowserConnected(options: {
     handleDevToolsAsPage: options.devtools,
   };
 
-  if (options.browserWSEndpoint) {
-    connectOptions.browserWSEndpoint = options.browserWSEndpoint;
-    if (options.headers) {
-      connectOptions.headers = options.headers;
+  if (options.wsEndpoint) {
+    connectOptions.browserWSEndpoint = options.wsEndpoint;
+    if (options.wsHeaders) {
+      connectOptions.headers = options.wsHeaders;
     }
   } else if (options.browserURL) {
     connectOptions.browserURL = options.browserURL;
   } else {
-    throw new Error('Either browserURL or browserWSEndpoint must be provided');
+    throw new Error('Either browserURL or wsEndpoint must be provided');
   }
 
   browser = await puppeteer.connect(connectOptions);
