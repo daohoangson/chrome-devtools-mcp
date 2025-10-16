@@ -1,5 +1,7 @@
 # Plan: Add WebSocket Endpoint and Headers Support
 
+## Status: ✅ COMPLETED
+
 ## Overview
 
 Add support for connecting to Chrome via WebSocket endpoint with custom headers, in addition to the existing `--browserUrl` argument.
@@ -122,10 +124,55 @@ Add usage examples showing:
 3. **Flexibility**: Choose between HTTP URL or WebSocket endpoint based on use case
 4. **API keys/tokens**: Support authenticated remote debugging scenarios
 
-## Testing Considerations
+## Implementation Progress
 
-- Verify WebSocket URL validation
-- Test header JSON parsing (valid/invalid cases)
-- Ensure headers only work with WebSocket endpoint
-- Test mutual exclusivity of browserUrl and browserWsEndpoint
-- Verify wsHeaders requires browserWsEndpoint
+### 1. CLI Arguments (src/cli.ts) ✅
+- ✅ Added `browserWsEndpoint` argument with WebSocket protocol validation
+- ✅ Added `wsHeaders` argument with JSON parsing and validation
+- ✅ Configured mutual exclusivity between `browserUrl` and `browserWsEndpoint`
+- ✅ Set up `implies` relationship (wsHeaders requires browserWsEndpoint)
+- ✅ Updated conflicts for `executablePath` and `channel`
+- ✅ Added CLI examples for WebSocket usage
+
+### 2. Browser Connection (src/browser.ts) ✅
+- ✅ Updated `ensureBrowserConnected` signature to support optional parameters
+- ✅ Added logic to choose between `browserURL` and `browserWSEndpoint`
+- ✅ Implemented headers passthrough when using WebSocket endpoint
+- ✅ Added error handling for missing connection parameters
+
+### 3. Main Entry Point (src/main.ts) ✅
+- ✅ Updated `getContext()` to check for both `browserUrl` and `browserWsEndpoint`
+- ✅ Pass all connection options to `ensureBrowserConnected`
+- ✅ Maintained backward compatibility with existing code
+
+### 4. Documentation (README.md) ✅
+- ✅ Added `--browserWsEndpoint` to configuration section
+- ✅ Added `--wsHeaders` to configuration section
+- ✅ Created new "Connecting via WebSocket with custom headers" section
+- ✅ Added example configuration with authentication header
+- ✅ Documented how to get WebSocket endpoint URL
+
+## Testing Results ✅
+
+- ✅ Build succeeds: `npm run build`
+- ✅ Type checking passes: `npm run typecheck`
+- ✅ Code formatting passes: `npm run format`
+- ✅ WebSocket URL validation works (ws:// and wss:// accepted)
+- ✅ Invalid protocol rejected (http:// shows proper error)
+- ✅ Mutual exclusivity enforced (browserUrl + browserWsEndpoint conflict)
+- ✅ wsHeaders requires browserWsEndpoint (dependency enforced)
+- ✅ Invalid JSON rejected with clear error message
+- ✅ Help output displays new options correctly
+
+## Git & PR Status ✅
+
+- ✅ Branch created: `sonkatalon/ws-endpoint-headers`
+- ✅ Changes committed with conventional commit message
+- ✅ Branch pushed to remote
+- ✅ Ready for PR creation
+
+**PR URL**: https://github.com/daohoangson/chrome-devtools-mcp/pull/new/sonkatalon/ws-endpoint-headers
+
+## Summary
+
+All planned changes have been successfully implemented and tested. The feature adds WebSocket endpoint and custom headers support while maintaining full backward compatibility with existing functionality.
